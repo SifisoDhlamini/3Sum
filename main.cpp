@@ -53,12 +53,16 @@ public:
         sort(nums.begin(), nums.end());
         for (int i = 0; i < nums.size(); i++)
         {
+            //to avoid duplicate triplets
             int target = -nums[i];
             int left = i + 1;
             int right = nums.size() - 1;
+            //two pointer approach
             while (left < right)
             {
+                //if sum is less than target then we need to increase the sum
                 int sum = nums[left] + nums[right];
+                //to avoid duplicate triplets
                 if (sum < target)
                 {
                     left++;
@@ -69,21 +73,25 @@ public:
                 }
                 else
                 {
+                    //if sum is equal to target then we have found the triplet
                     vector<int> temp;
                     temp.push_back(nums[i]);
                     temp.push_back(nums[left]);
                     temp.push_back(nums[right]);
                     result.push_back(temp);
+                    //check if the next left element is same as the current element
                     while (left < right && nums[left] == temp[1])
                     {
                         left++;
                     }
+                    //check if the next right element is same as the current element
                     while (left < right && nums[right] == temp[2])
                     {
                         right--;
                     }
                 }
             }
+            //check if the next base (used as negated traget)element is same as the current element
             while (i + 1 < nums.size() && nums[i + 1] == nums[i])
             {
                 i++;
